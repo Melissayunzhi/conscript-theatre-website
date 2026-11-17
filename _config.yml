@@ -1,0 +1,30 @@
+title: Conscript Theatre
+description: Conscript Theatre is a Techno-Physical Live Arts Collective. Sounds exciting, doesn't it!
+url: https://conscripttheatre.com
+baseurl: ""
+
+collections:
+  shows:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: shows
+    values:
+      layout: show
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-redirect-from
+
+exclude:
+  - README.md
+  - tools
+  - redirect-site
+  - Gemfile
+  - Gemfile.lock

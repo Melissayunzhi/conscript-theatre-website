@@ -1,0 +1,226 @@
+# Pages CMS configuration — https://pagescms.org/docs/
+# This is what Conscript sees when they log in to edit the site.
+
+media:
+  - name: images
+    label: Images
+    input: assets/images
+    output: /assets/images
+    extensions: [jpg, jpeg, png, webp, gif, avif]
+  - name: audio
+    label: Audio
+    input: assets/audio
+    output: /assets/audio
+    extensions: [mp3, m4a, ogg, wav]
+  - name: video
+    label: Video
+    input: assets/video
+    output: /assets/video
+    extensions: [mp4, webm]
+
+content:
+  # ---------------------------------------------------------------- Shows
+  - name: shows
+    label: Shows
+    type: collection
+    path: _shows
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, status, year]
+      sort: order
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: status
+        label: Status
+        type: select
+        description: "Current = shown at the top of Projects and on the homepage. Past = listed under Previous Work."
+        options:
+          values: [current, past]
+      - { name: order, label: Order, type: number, description: "Lower numbers appear first." }
+      - { name: year, label: Year, type: number }
+      - { name: subtitle, label: "Subtitle (dates and places)", type: string }
+      - { name: summary, label: "Short summary (for the Projects page)", type: text }
+      - { name: description, label: "Search engine description", type: text }
+      - { name: hero, label: Main image, type: image, options: { media: images } }
+      - { name: body, label: Story, type: rich-text }
+      - { name: co_producers, label: Co-producers, type: string, list: true }
+      - { name: awards, label: Award laurels, type: image, list: true, options: { media: images } }
+      - { name: tickets_url, label: Tickets link, type: string }
+      - { name: tickets_label, label: Tickets button text, type: string }
+      - { name: event_line, label: "Event line (e.g. festival and date)", type: string }
+      - { name: event_image, label: Event logo strip, type: image, options: { media: images } }
+      - { name: trailer, label: "Trailer (YouTube or Vimeo link)", type: string }
+      - { name: gallery, label: Photos, type: image, list: true, options: { media: images } }
+      - { name: questions, label: Extra text block, type: rich-text }
+      - { name: quotes_heading, label: Quotes heading, type: string }
+      - name: quotes
+        label: Quotes
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{source} ({index})" }
+        fields:
+          - { name: text, label: Quote, type: text }
+          - { name: source, label: "Who said it (optional)", type: string }
+      - { name: review, label: Review, type: rich-text }
+      - { name: credits, label: Show credits, type: rich-text }
+      - { name: photo_credit, label: Photographer, type: string }
+      - { name: booking_cta, label: "Show the 'venues and festivals, book this show' box", type: boolean }
+      - { name: redirect_from, type: string, list: true, hidden: true }
+
+  # ---------------------------------------------------------------- Pages
+  - name: home
+    label: Homepage
+    type: file
+    path: index.md
+    fields:
+      - name: showreel
+        label: Showreel
+        type: string
+        description: "Plays automatically, muted, at the top of the homepage. Paste a YouTube or Vimeo link, or a path to an .mp4 uploaded under Video (keep files under 50 MB). Leave empty to hide."
+      - { name: showreel_poster, label: Showreel still image, type: image, options: { media: images } }
+      - { name: logo_image, label: Big logo image, type: image, options: { media: images } }
+      - { name: logo_alt, label: Big logo description, type: string }
+      - { name: photo, label: Photo, type: image, options: { media: images } }
+      - { name: photo_alt, label: Photo description, type: string }
+      - { name: button_label, label: Button text, type: string }
+      - { name: button_link, label: Button link, type: string }
+      - { name: tagline, label: Tagline, type: text }
+      - { name: layout, type: string, hidden: true }
+      - { name: title, type: string, hidden: true }
+      - { name: page_id, type: string, hidden: true }
+
+  - name: about
+    label: About page
+    type: file
+    path: about.md
+    fields:
+      - name: sections
+        label: Sections
+        type: object
+        description: "Drag sections to reorder them."
+        list:
+          collapsible: { collapsed: true, summary: "{heading} ({index})" }
+        fields:
+          - name: style
+            label: Layout
+            type: select
+            options:
+              values:
+                - { value: image-text, label: "Image left, text right" }
+                - { value: text-image, label: "Text left, image right" }
+                - { value: text, label: "Text only" }
+                - { value: banner, label: "Big banner line (uses the heading)" }
+          - { name: heading, label: Heading, type: string }
+          - { name: image, label: Image, type: image, options: { media: images } }
+          - { name: image_alt, label: Image description, type: string }
+          - { name: body, label: Text, type: rich-text }
+      - { name: layout, type: string, hidden: true }
+      - { name: title, type: string, hidden: true }
+      - { name: page_id, type: string, hidden: true }
+      - { name: permalink, type: string, hidden: true }
+      - { name: redirect_from, type: string, list: true, hidden: true }
+
+  - name: projects
+    label: Projects page
+    type: file
+    path: projects.md
+    fields:
+      - { name: current_label, label: "Label above the current show", type: string }
+      - { name: previous_heading, label: "Heading above past shows", type: string }
+      - { name: layout, type: string, hidden: true }
+      - { name: title, type: string, hidden: true }
+      - { name: page_id, type: string, hidden: true }
+      - { name: permalink, type: string, hidden: true }
+
+  - name: team
+    label: Meet the Team page
+    type: file
+    path: team.md
+    fields:
+      - { name: description, label: Search engine description, type: text }
+      - { name: intro, label: Intro, type: rich-text }
+      - name: members
+        label: Team members
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{name}" }
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: title, label: "Title (e.g. Artistic Director)", type: string }
+          - { name: roles, label: Roles, type: string }
+          - { name: photo, label: Photo, type: image, options: { media: images } }
+          - { name: photo_hover, label: "Second photo (shows on hover / tap)", type: image, options: { media: images } }
+          - { name: bio, label: Bio, type: rich-text }
+      - { name: collaborators_heading, label: Collaborators heading, type: string }
+      - { name: collaborators_intro, label: Collaborators intro, type: text }
+      - name: collaborators
+        label: Collaborators
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{name}" }
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: role, label: "Role / project", type: string }
+          - { name: link, label: "Website or Instagram link (optional)", type: string }
+      - { name: values_heading, label: Values heading, type: string }
+      - { name: values_image, label: Values image, type: image, options: { media: images } }
+      - name: values
+        label: Values
+        type: text
+        list: true
+        description: "One group per box, one word per line."
+      - { name: values_statement, label: Values statement, type: rich-text }
+      - { name: layout, type: string, hidden: true }
+      - { name: title, type: string, hidden: true }
+      - { name: page_id, type: string, hidden: true }
+      - { name: permalink, type: string, hidden: true }
+
+  - name: contact
+    label: Contact page
+    type: file
+    path: contact.md
+    fields:
+      - { name: description, label: Search engine description, type: text }
+      - { name: heading, label: Heading, type: string }
+      - { name: intro, label: Text, type: rich-text }
+      - { name: form_heading, label: Contact box heading, type: string }
+      - { name: layout, type: string, hidden: true }
+      - { name: title, type: string, hidden: true }
+      - { name: page_id, type: string, hidden: true }
+      - { name: permalink, type: string, hidden: true }
+      - { name: redirect_from, type: string, list: true, hidden: true }
+
+  # ---------------------------------------------------------------- Site-wide
+  - name: settings
+    label: Site settings
+    type: file
+    path: _data/settings.yml
+    fields:
+      - { name: email, label: Email, type: string }
+      - { name: instagram, label: Instagram link, type: string }
+      - { name: instagram_handle, label: Instagram handle (no @), type: string }
+      - { name: youtube, label: YouTube link, type: string }
+      - name: ambient_audio
+        label: Ambient sound
+        type: file
+        description: "An .mp3 that visitors can switch on. It keeps playing as they move between pages. Keep it under 10 MB. Leave empty to hide the player."
+        options: { media: audio }
+      - { name: ambient_label, label: Ambient sound label, type: string }
+      - { name: logo_header, label: Header logo, type: image, options: { media: images } }
+      - { name: logo_text, label: Text logo (footer and team page), type: image, options: { media: images } }
+      - { name: share_image, label: Image shown when the site is shared, type: image, options: { media: images } }
+      - { name: copyright, label: Footer copyright line, type: string }
+      - name: contact_form_endpoint
+        label: Contact form endpoint
+        type: string
+        description: "Optional. A Formspree (or similar) form URL. Leave empty to show only email and Instagram."
+
+  - name: navigation
+    label: Menu
+    type: file
+    path: _data/navigation.yml
+    list: true
+    fields:
+      - { name: title, label: Label, type: string }
+      - { name: url, label: Link, type: string }

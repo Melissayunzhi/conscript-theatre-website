@@ -1,0 +1,19 @@
+---
+layout: default
+---
+{%- for s in page.sections %}
+{%- assign has_img = false -%}{%- if s.image and s.image != "" -%}{%- assign has_img = true -%}{%- endif -%}
+{%- if s.style == 'banner' %}
+<section class="banner"><p>{{ s.heading }}</p></section>
+{%- else %}
+<section class="split {% if has_img %}split-{{ s.style }}{% else %}split-text{% endif %}">
+  {%- if has_img %}
+  <figure class="split-img"><img src="{% include src.html src=s.image %}" alt="{{ s.image_alt }}" loading="lazy"></figure>
+  {%- endif %}
+  <div class="split-body prose">
+    {%- if s.heading and s.heading != "" %}<h2>{{ s.heading }}</h2>{% endif %}
+    {{ s.body | markdownify }}
+  </div>
+</section>
+{%- endif %}
+{%- endfor %}

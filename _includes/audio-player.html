@@ -1,0 +1,11 @@
+{%- assign a = site.data.settings.ambient_audio -%}
+{%- if a and a != "" -%}
+<div class="ambient" data-ambient>
+  <audio src="{% include src.html src=a %}" loop preload="none"></audio>
+  <button class="ambient-btn" aria-pressed="false">
+    <span class="ambient-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="ambient-label">sound on</span>
+  </button>
+  <span class="ambient-title">{{ site.data.settings.ambient_label }}</span>
+</div>
+{%- endif -%}

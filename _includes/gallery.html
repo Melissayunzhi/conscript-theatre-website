@@ -1,0 +1,29 @@
+{%- comment -%}
+  include.images = list of image paths/URLs
+  include.style = "slider" (one image at a time with counter, like the Wix slideshow) or "grid"
+{%- endcomment -%}
+{%- assign imgs = include.images -%}
+{%- if imgs and imgs.size > 0 -%}
+{%- if include.style == 'slider' -%}
+<div class="slider" data-slider>
+  <div class="slider-track">
+    {%- for img in imgs %}
+    <figure class="slide{% if forloop.first %} is-active{% endif %}">
+      <img src="{% include src.html src=img %}" alt="{{ include.alt | default: 'Production photo' }} {{ forloop.index }}" loading="lazy" data-lightbox="{{ include.group }}">
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- if imgs.size > 1 %}
+  <button class="slider-btn prev" aria-label="Previous photo">&#8249;</button>
+  <button class="slider-btn next" aria-label="Next photo">&#8250;</button>
+  <p class="slider-count"><span data-current>1</span>/{{ imgs.size }}</p>
+  {%- endif %}
+</div>
+{%- else -%}
+<div class="gallery-grid">
+  {%- for img in imgs %}
+  <figure><img src="{% include src.html src=img %}" alt="{{ include.alt | default: 'Production photo' }} {{ forloop.index }}" loading="lazy" data-lightbox="{{ include.group }}"></figure>
+  {%- endfor %}
+</div>
+{%- endif -%}
+{%- endif -%}

@@ -1,0 +1,11 @@
+{%- assign s = site.data.settings -%}
+<footer class="site-footer">
+  <img class="footer-logo" src="{% include src.html src=s.logo_text %}" alt="Conscript" width="228" height="131" loading="lazy">
+  <p><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
+  <ul class="socials">
+    <li><a href="{{ s.instagram }}" aria-label="Instagram">{% include icon-instagram.html %}</a></li>
+    <li><a href="{{ s.youtube }}" aria-label="YouTube">{% include icon-youtube.html %}</a></li>
+  </ul>
+  <p class="handle">@<a href="{{ s.instagram }}">{{ s.instagram_handle }}</a></p>
+  <p class="copyright">{{ s.copyright }}</p>
+</footer>

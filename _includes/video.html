@@ -1,0 +1,19 @@
+{%- comment -%}
+  Video embed. Accepts a YouTube link, a Vimeo link, or an .mp4/.webm file path.
+  include.background=true → autoplay, muted, looping, no controls (for the showreel).
+{%- endcomment -%}
+{%- assign v = include.url | strip -%}
+{%- assign bg = include.background -%}
+{%- assign low = v | downcase -%}
+{%- if low contains '.mp4' or low contains '.webm' -%}
+<video class="video-file" src="{% include src.html src=v %}"{% if include.poster %} poster="{% include src.html src=include.poster %}"{% endif %} playsinline {% if bg %}autoplay muted loop{% else %}controls{% endif %} preload="metadata"></video>
+{%- elsif low contains 'youtu' -%}
+  {%- if v contains 'youtu.be/' -%}{%- assign id = v | split: 'youtu.be/' | last | split: '?' | first -%}
+  {%- elsif v contains 'embed/' -%}{%- assign id = v | split: 'embed/' | last | split: '?' | first -%}
+  {%- elsif v contains 'shorts/' -%}{%- assign id = v | split: 'shorts/' | last | split: '?' | first -%}
+  {%- else -%}{%- assign id = v | split: 'v=' | last | split: '&' | first -%}{%- endif -%}
+<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/{{ id }}?{% if bg %}autoplay=1&mute=1&loop=1&playlist={{ id }}&controls=0&modestbranding=1&playsinline=1&rel=0{% else %}rel=0{% endif %}" title="{{ include.title | default: 'Video' }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+{%- elsif low contains 'vimeo' -%}
+  {%- assign id = v | split: 'vimeo.com/' | last | split: '?' | first | replace: 'video/', '' -%}
+<div class="video-frame"><iframe src="https://player.vimeo.com/video/{{ id }}?{% if bg %}background=1&autoplay=1&muted=1&loop=1{% else %}dnt=1{% endif %}" title="{{ include.title | default: 'Video' }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+{%- endif -%}

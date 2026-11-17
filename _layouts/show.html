@@ -1,0 +1,76 @@
+---
+layout: default
+---
+<article class="show">
+  <p class="back"><a href="{{ '/projects/' | relative_url }}">&larr; Back to Projects</a></p>
+
+  <header class="show-head">
+    <h1>{{ page.title }}</h1>
+    {%- if page.subtitle %}<p class="show-subtitle">{{ page.subtitle }}</p>{% endif %}
+  </header>
+
+  <div class="show-intro">
+    <div class="show-text">
+      {%- if page.co_producers and page.co_producers.size > 0 %}
+      <p class="label">Co-Production with:</p>
+      <ul class="plain">{% for c in page.co_producers %}<li>{{ c }}</li>{% endfor %}</ul>
+      {%- endif %}
+      <div class="prose">{{ content }}</div>
+      {%- if page.awards and page.awards.size > 0 %}
+      <div class="awards">{% for a in page.awards %}<img src="{% include src.html src=a %}" alt="Award laurel" loading="lazy">{% endfor %}</div>
+      {%- endif %}
+      {%- if page.tickets_url and page.tickets_url != "" %}
+      <p><a class="button" href="{{ page.tickets_url }}">{{ page.tickets_label | default: 'Tickets Here' }}</a></p>
+      {%- endif %}
+    </div>
+    {%- if page.hero and page.hero != "" %}
+    <figure class="show-hero"><img src="{% include src.html src=page.hero %}" alt="{{ page.title }}" data-lightbox="hero"></figure>
+    {%- endif %}
+  </div>
+
+  {%- if page.trailer and page.trailer != "" %}
+  <section class="show-trailer">
+    <h2 class="small-heading">Watch the Trailer:</h2>
+    {% include video.html url=page.trailer title=page.title %}
+  </section>
+  {%- endif %}
+
+  {%- if page.questions and page.questions != "" %}
+  <section class="prose show-questions">{{ page.questions | markdownify }}</section>
+  {%- endif %}
+
+  {%- if page.quotes and page.quotes.size > 0 %}
+  <section class="quotes">
+    <h2 class="small-heading">{{ page.quotes_heading | default: 'Some quotes from our audience:' }}</h2>
+    {%- for q in page.quotes %}
+    <blockquote><p>&ldquo;{{ q.text }}&rdquo;</p>{% if q.source and q.source != "" %}<cite>{{ q.source }}</cite>{% endif %}</blockquote>
+    {%- endfor %}
+  </section>
+  {%- endif %}
+
+  {% include gallery.html images=page.gallery style="grid" group=page.slug alt=page.title %}
+
+  {%- if page.review and page.review != "" %}
+  <section class="prose review">{{ page.review | markdownify }}</section>
+  {%- endif %}
+
+  {%- if page.credits and page.credits != "" %}
+  <section class="credits">
+    <h2 class="small-heading">Show Credits</h2>
+    <div class="prose">{{ page.credits | markdownify }}</div>
+  </section>
+  {%- endif %}
+
+  {%- if page.photo_credit and page.photo_credit != "" %}
+  <p class="photo-credit">Show Photography by {{ page.photo_credit }}</p>
+  {%- endif %}
+
+  {%- if page.booking_cta %}
+  <section class="cta">
+    <p class="cta-big">Are you a theatre venue or festival?</p>
+    <p class="cta-big">Would you like this show in your lineup?</p>
+    <p>If so, please don't hesitate to get in touch.</p>
+    <p><a class="button" href="{{ '/contact/' | relative_url }}">Contact Us Here</a></p>
+  </section>
+  {%- endif %}
+</article>
