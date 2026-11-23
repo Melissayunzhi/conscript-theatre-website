@@ -1,33 +1,39 @@
 #!/usr/bin/env bash
-# Downloads every image the site still loads from Wix into assets/images/wix/
-# and rewrites the content files to point at the local copies.
-# Run once from the repo root, on your own computer, before cancelling Wix:
+# Copies the last few files that still load from Wix into this repo:
+#   - the custom heading font  -> assets/fonts/display.woff2
+#   - URS media videos + development-history images -> assets/wix/
+# and rewrites the content files to use the local copies.
 #
+# Run once from the repo root on your own computer, before cancelling Wix:
 #   bash tools/pull-wix-images.sh
-#
-# Then check the site locally, commit and push.
+# Then commit and push.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-OUT="assets/images/wix"
-mkdir -p "$OUT"
-FILES=$(ls _shows/*.md *.md _data/*.yml 2>/dev/null | grep -v README.md)
+# 1. Heading font
+mkdir -p assets/fonts
+FONT_URL=$(grep -oE 'https://static\.wixstatic\.com/ufonts/[^" ]+' _data/settings.yml || true)
+if [ -n "$FONT_URL" ]; then
+  echo "↓ heading font"
+  curl -fsSL "$FONT_URL" -o assets/fonts/display.woff2
+  perl -pi -e 's#^display_font:.*#display_font: ""#' _data/settings.yml
+fi
 
-URLS=$(grep -ohE 'https://static\.wixstatic\.com/media/[^" )]+' $FILES | sort -u)
-COUNT=0
+# 2. Any other Wix-hosted images / videos in the content
+OUT="assets/wix"
+mkdir -p "$OUT"
+FILES=$(ls _shows/*.md index.md about.md projects.md team.md contact.md _data/*.yml)
+URLS=$(grep -ohE 'https://(static|video)\.wixstatic\.com/[^" )]+' $FILES | sort -u || true)
 for url in $URLS; do
-  id=$(echo "$url" | sed -E 's#https://static\.wixstatic\.com/media/([^/~]+).*#\1#')
-  ext=$(echo "$url" | sed -E 's#https://static\.wixstatic\.com/media/[^/]+~mv2\.([a-zA-Z]+).*#\1#')
-  [ "$ext" = "$url" ] && ext="png"
-  suffix=""
-  case "$url" in *"/crop/"*) suffix="-crop" ;; esac
-  name="${id}${suffix}.${ext}"
-  if [ ! -s "$OUT/$name" ]; then
-    echo "↓ $name"
-    curl -fsSL "$url" -o "$OUT/$name"
-  fi
-  # replace this exact URL everywhere with the local path
+  case "$url" in
+    https://video.wixstatic.com/*)
+      id=$(echo "$url" | sed -E 's#.*/video/([^/]+)/.*#\1#'); name="$id.mp4" ;;
+    *)
+      base=$(echo "$url" | sed -E 's#https://static\.wixstatic\.com/media/([^/]+).*#\1#')
+      name=$(echo "$base" | sed -E 's/~mv2//') ;;
+  esac
+  if [ ! -s "$OUT/$name" ]; then echo "↓ $name"; curl -fsSL "$url" -o "$OUT/$name"; fi
   URL="$url" NEW="/$OUT/$name" perl -pi -e 's/\Q$ENV{URL}\E/$ENV{NEW}/g' $FILES
-  COUNT=$((COUNT+1))
 done
-echo "Done: $COUNT images saved in $OUT and content files updated."
+echo "Done. Nothing on the site loads from Wix any more:"
+grep -l "wixstatic" $FILES || echo "  (no Wix links left)"

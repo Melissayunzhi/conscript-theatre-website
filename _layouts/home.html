@@ -12,22 +12,24 @@ layout: default
   <figure class="home-logo">
     <img src="{% include src.html src=page.logo_image %}" alt="{{ page.logo_alt }}" width="523" height="625">
   </figure>
-  <div class="home-side">
-    <figure class="home-photo">
-      <img src="{% include src.html src=page.photo %}" alt="{{ page.photo_alt }}" width="553" height="369">
-    </figure>
-    <a class="button button-big" href="{{ page.button_link | relative_url }}">{{ page.button_label }}</a>
-    <div class="home-tagline">{{ page.tagline | markdownify }}</div>
-  </div>
+  <figure class="home-photo">
+    <img src="{% include src.html src=page.photo %}" alt="{{ page.photo_alt }}" width="553" height="369">
+  </figure>
+  <div class="home-tagline">{{ page.tagline | markdownify }}</div>
+  <p class="home-cta"><a class="btn btn-intrigued" href="{{ page.button_link | relative_url }}">{{ page.button_label }}</a></p>
 </section>
 
 {%- assign current = site.shows | where: "status", "current" | sort: "order" %}
-{%- if current.size > 0 %}
+{%- if current.size > 0 and page.show_now_showing %}
 <section class="home-now">
-  <p class="label">Now showing</p>
   {%- for s in current %}
   <a class="now-card" href="{{ s.url | relative_url }}">
-    <span class="now-title">{{ s.title }}</span>
+    <span class="now-label">Now showing</span>
+    {%- if s.title_image and s.title_image != "" %}
+    <img class="now-title-img" src="{% include src.html src=s.title_image %}" alt="{{ s.title }}">
+    {%- else %}
+    <span class="now-title show-font-{{ s.title_font | default: 'jost' }}">{{ s.title }}</span>
+    {%- endif %}
     {%- if s.event_line and s.event_line != "" %}<span class="now-event">{{ s.event_line }}</span>{% endif %}
   </a>
   {%- endfor %}

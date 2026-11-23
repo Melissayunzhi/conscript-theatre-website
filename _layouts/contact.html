@@ -2,31 +2,32 @@
 layout: default
 ---
 {%- assign s = site.data.settings -%}
-<h1 class="page-title">{{ page.title }}</h1>
-<div class="contact">
-  <div class="contact-intro">
-    <h2 class="contact-heading">{{ page.heading }}</h2>
-    <div class="prose">{{ page.intro | markdownify }}</div>
-  </div>
-  <div class="contact-box">
-    <h2 class="small-heading">{{ page.form_heading }}</h2>
-    <dl class="contact-details">
-      <dt>Email</dt>
-      <dd><a href="mailto:{{ s.email }}">{{ s.email }}</a></dd>
-      <dt>Instagram</dt>
-      <dd><a href="{{ s.instagram }}">{% include icon-instagram.html %} @{{ s.instagram_handle }}</a></dd>
-    </dl>
+<div class="wrap contact">
+  <h1 class="display display-xl">{{ page.heading }}</h1>
+  <div class="contact-intro">{{ page.intro | markdownify }}</div>
+</div>
+<section class="contact-box">
+  <div class="wrap">
+    <h2 class="display display-md">{{ page.form_heading }}</h2>
+    <div class="contact-details">
+      <div>
+        <p class="label">Email</p>
+        <p><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
+      </div>
+      <div>
+        <p class="label">Instagram</p>
+        <p><a class="ig" href="{{ s.instagram }}">{% include icon-instagram.html %} @{{ s.instagram_handle }}</a></p>
+      </div>
+    </div>
     {%- if s.contact_form_endpoint and s.contact_form_endpoint != "" %}
     <form class="contact-form" action="{{ s.contact_form_endpoint }}" method="POST" data-ajax-form>
-      <div class="form-row">
-        <label>First Name<input name="first_name" autocomplete="given-name" required></label>
-        <label>Last Name<input name="last_name" autocomplete="family-name"></label>
-      </div>
-      <label>Email<input type="email" name="email" autocomplete="email" required></label>
-      <label>Message<textarea name="message" rows="6" required></textarea></label>
-      <button class="button" type="submit">Send</button>
+      <label>First Name<input name="first_name" autocomplete="given-name"></label>
+      <label>Last Name<input name="last_name" autocomplete="family-name"></label>
+      <label>Email *<input type="email" name="email" autocomplete="email" required></label>
+      <label class="span-3">Message<textarea name="message" rows="4" required></textarea></label>
+      <p class="form-actions"><button class="btn btn-send" type="submit">Send</button></p>
       <p class="form-status" role="status" hidden>Thanks for submitting!</p>
     </form>
     {%- endif %}
   </div>
-</div>
+</section>

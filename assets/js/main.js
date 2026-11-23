@@ -118,6 +118,39 @@
       });
     });
 
+    // Inline page audio (the Wix-style play button + progress line)
+    root.querySelectorAll("[data-page-audio]").forEach(function (box) {
+      var audio = box.querySelector("audio");
+      var btn = box.querySelector(".pa-btn");
+      var track = box.querySelector(".pa-track");
+      var fill = box.querySelector(".pa-fill");
+      function ui(on) {
+        box.classList.toggle("is-playing", on);
+        btn.setAttribute("aria-pressed", String(on));
+        btn.setAttribute("aria-label", on ? "Pause sound" : "Play sound");
+      }
+      btn.addEventListener("click", function () {
+        if (audio.paused) {
+          document.querySelectorAll("audio").forEach(function (a) { if (a !== audio) a.pause(); });
+          ambient.pause();
+          var p = audio.play();
+          if (p && p.catch) p.catch(function () { ui(false); });
+        } else {
+          audio.pause();
+        }
+      });
+      audio.addEventListener("play", function () { ui(true); });
+      audio.addEventListener("pause", function () { ui(false); });
+      audio.addEventListener("ended", function () { ui(false); });
+      audio.addEventListener("timeupdate", function () {
+        if (audio.duration) fill.style.width = (audio.currentTime / audio.duration * 100) + "%";
+      });
+      track.addEventListener("click", function (e) {
+        var r = track.getBoundingClientRect();
+        if (audio.duration) audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+      });
+    });
+
     // Showreel: muted autoplay, with an optional sound button for video files
     var reel = root.querySelector(".showreel video");
     var reelBtn = root.querySelector(".showreel-sound");
@@ -182,6 +215,7 @@
     function play() {
       var t = parseFloat(store.get("ambient-time") || "0");
       if (t && !audio.currentTime) { try { audio.currentTime = t; } catch (e) {} }
+      document.querySelectorAll("[data-page-audio] audio").forEach(function (a) { a.pause(); });
       audio.volume = 0;
       var p = audio.play();
       if (p && p.then) {

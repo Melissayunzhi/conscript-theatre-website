@@ -21,14 +21,18 @@ tools/pull-wix-images.sh   copies the Wix-hosted images into this repo
 2. Repo → Settings → Pages → Source: **Deploy from a branch**, branch `main`, folder `/ (root)`.
 3. It goes live at `https://<account>.github.io/<repo>/`. While testing on that address, set `baseurl: "/<repo>"` in `_config.yml`; set it back to `""` once the custom domain is on.
 
-## 2. Bring the images over from Wix
+## 2. The last few files on Wix
 
-Images currently load from Wix's servers. Before cancelling Wix, on your own computer:
+All photos, logos, page sounds and the Surely trailer from Elia's asset pack are already in `assets/` (resized for the web, location data stripped).
+Still loading from Wix: the custom heading font, and the three URS video clips + development-history images.
+Before cancelling Wix, on your own computer:
 
 ```
 bash tools/pull-wix-images.sh
-git add -A && git commit -m "Move images off Wix" && git push
+git add -A && git commit -m "Move last files off Wix" && git push
 ```
+
+Fonts: Jost (main text, Google's version of Futura), Cormorant Garamond (values, Surely title), Questrial (eco 40-60° title, standing in for Wix's "Aether"), and Conscript's own uploaded heading font. Check that font's licence allows self-hosting.
 
 ## 3. Pages CMS (editing without code)
 
@@ -40,8 +44,9 @@ git add -A && git commit -m "Move images off Wix" && git push
 Things they can do there:
 - **Add a show**: Shows → new entry. Status `current` puts it at the top of Projects and on the homepage.
 - **Showreel**: Homepage → paste a YouTube/Vimeo link, or upload an .mp4 (keep under 50 MB; GitHub rejects files over 100 MB). Plays muted on loop.
-- **Ambient sound**: Site settings → upload an .mp3. A "sound on" button appears bottom-left and keeps playing across pages.
-- **Team hover**: add a "Second photo" to a member and it swaps in on hover/tap. Without one, the photo goes from black-and-white to colour with a scanline flicker.
+- **Page sounds**: About, Projects, Meet the Team and the URS page each have their own track next to the heading, like on Wix ("Sound next to heading").
+- **Ambient sound (optional)**: Site settings → upload an .mp3 for a site-wide "sound on" button that keeps playing across pages.
+- **Team hover**: add a "Second photo" to a member and it swaps in on hover/tap. Without one, the photo flickers to black-and-white with scanlines.
 - **Reorder About paragraphs**: About page → drag the sections.
 
 ## 4. Domains

@@ -1,62 +1,65 @@
 ---
 layout: default
 ---
-<header class="team-head">
-  <h1 class="who-is">
-    <span>who is</span>
-    <img src="{% include src.html src=site.data.settings.logo_text %}" alt="Conscript" width="267" height="150">
-    <span class="q">?</span>
-  </h1>
-  <div class="prose team-intro">{{ page.intro | markdownify }}</div>
-</header>
+<div class="wrap">
+  <div class="heading-row page-heading">
+    <h1 class="who-is display">
+      <span>who is</span>
+      <img src="{% include src.html src=site.data.settings.logo_text %}" alt="Conscript" width="267" height="70">
+      <span>?</span>
+    </h1>
+    {% include page-audio.html src=page.audio %}
+  </div>
 
-<div class="members">
-  {%- for m in page.members %}
-  {%- assign has_hover = false -%}{%- if m.photo_hover and m.photo_hover != "" -%}{%- assign has_hover = true -%}{%- endif %}
-  <article class="member{% cycle '', ' member-flip' %}">
-    <figure class="member-photo{% if has_hover %} has-hover{% endif %}" tabindex="0" aria-label="Photo of {{ m.name }}{% if has_hover %}, hover or tap to change{% endif %}">
-      <img class="photo-main" src="{% include src.html src=m.photo %}" alt="{{ m.name }}" loading="lazy">
-      {%- if has_hover %}
-      <img class="photo-alt" src="{% include src.html src=m.photo_hover %}" alt="" aria-hidden="true" loading="lazy">
-      {%- endif %}
-      <span class="member-scan" aria-hidden="true"></span>
-    </figure>
-    <div class="member-text">
-      <h2 class="member-name">{{ m.name }}</h2>
-      {%- if m.title and m.title != "" %}<p class="member-title">{{ m.title }}</p>{% endif %}
-      {%- if m.roles and m.roles != "" %}<p class="member-roles">{{ m.roles }}</p>{% endif %}
-      <div class="prose">{{ m.bio | markdownify }}</div>
-    </div>
-  </article>
-  {%- endfor %}
+  <div class="members">
+    <div class="team-intro prose">{{ page.intro | markdownify }}</div>
+    {%- for m in page.members %}
+    {%- assign has_hover = false -%}{%- if m.photo_hover and m.photo_hover != "" -%}{%- assign has_hover = true -%}{%- endif %}
+    <article class="member{% cycle ' member-right', ' member-left' %}">
+      <div class="member-text">
+        <h2 class="member-name">{{ m.name }}</h2>
+        {%- if m.title and m.title != "" %}<p class="member-title">{{ m.title }}</p>{% endif %}
+        {%- if m.roles and m.roles != "" %}<p class="member-roles">{{ m.roles }}</p>{% endif %}
+        <div class="member-bio">{{ m.bio | markdownify }}</div>
+      </div>
+      <figure class="member-photo{% if has_hover %} has-hover{% endif %}" tabindex="0" aria-label="Photo of {{ m.name }}">
+        <img class="photo-main" src="{% include src.html src=m.photo %}" alt="{{ m.name }}" loading="lazy">
+        {%- if has_hover %}
+        <img class="photo-alt" src="{% include src.html src=m.photo_hover %}" alt="" aria-hidden="true" loading="lazy">
+        {%- endif %}
+        <span class="member-scan" aria-hidden="true"></span>
+      </figure>
+    </article>
+    {%- endfor %}
+  </div>
+
+  {%- if page.collaborators and page.collaborators.size > 0 %}
+  <section class="collaborators">
+    <h2 class="display display-md">{{ page.collaborators_heading }}</h2>
+    {%- if page.collaborators_intro %}<p>{{ page.collaborators_intro }}</p>{% endif %}
+    <ul class="collab-list">
+      {%- for c in page.collaborators %}
+      <li>
+        {%- if c.link and c.link != "" %}<a href="{{ c.link }}" class="collab-name">{{ c.name }}</a>{% else %}<span class="collab-name">{{ c.name }}</span>{% endif %}
+        {%- if c.role and c.role != "" %}<span class="collab-role">{{ c.role }}</span>{% endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
 </div>
 
-{%- if page.collaborators and page.collaborators.size > 0 %}
-<section class="collaborators">
-  <h2 class="section-heading">{{ page.collaborators_heading }}</h2>
-  {%- if page.collaborators_intro %}<p>{{ page.collaborators_intro }}</p>{% endif %}
-  <ul class="collab-list">
-    {%- for c in page.collaborators %}
-    <li>
-      {%- if c.link and c.link != "" %}<a href="{{ c.link }}" class="collab-name">{{ c.name }}</a>{% else %}<span class="collab-name">{{ c.name }}</span>{% endif %}
-      {%- if c.role and c.role != "" %}<span class="collab-role">{{ c.role }}</span>{% endif %}
-    </li>
-    {%- endfor %}
-  </ul>
-</section>
-{%- endif %}
-
 <section class="values">
-  <h2 class="section-heading">{{ page.values_heading }}</h2>
-  <div class="values-grid">
-    {%- if page.values_image and page.values_image != "" %}
-    <figure class="values-img"><img src="{% include src.html src=page.values_image %}" alt="" loading="lazy"></figure>
-    {%- endif %}
+  <div class="values-dark">
+    <h2 class="display display-lg">{{ page.values_heading }}</h2>
+    {%- if page.values_image and page.values_image != "" %}<img src="{% include src.html src=page.values_image %}" alt="" loading="lazy">{% endif %}
+  </div>
+  <div class="values-light">
     <div class="values-words">
       {%- for group in page.values %}
       <ul>{% assign words = group | strip | newline_to_br | split: '<br />' %}{% for w in words %}{% assign w2 = w | strip %}{% if w2 != "" %}<li>{{ w2 }}</li>{% endif %}{% endfor %}</ul>
       {%- endfor %}
     </div>
+    <div class="values-statement">{{ page.values_statement | markdownify }}</div>
   </div>
-  <div class="prose values-statement">{{ page.values_statement | markdownify }}</div>
 </section>

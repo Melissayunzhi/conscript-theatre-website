@@ -1,76 +1,128 @@
 ---
 layout: default
 ---
-<article class="show">
-  <p class="back"><a href="{{ '/projects/' | relative_url }}">&larr; Back to Projects</a></p>
+<article class="show wrap">
+  <p class="back"><a href="{{ '/projects/' | relative_url }}">Back to Projects</a></p>
 
-  <header class="show-head">
-    <h1>{{ page.title }}</h1>
-    {%- if page.subtitle %}<p class="show-subtitle">{{ page.subtitle }}</p>{% endif %}
-  </header>
-
-  <div class="show-intro">
-    <div class="show-text">
+  <div class="show-top">
+    <div class="show-main">
+      <div class="heading-row">
+        <h1 class="show-title show-font-{{ page.title_font | default: 'jost' }}">{{ page.title }}</h1>
+        {% include page-audio.html src=page.audio %}
+      </div>
+      {%- if page.subtitle and page.subtitle != "" %}<p class="show-subtitle">{{ page.subtitle | strip | newline_to_br }}</p>{% endif %}
       {%- if page.co_producers and page.co_producers.size > 0 %}
-      <p class="label">Co-Production with:</p>
-      <ul class="plain">{% for c in page.co_producers %}<li>{{ c }}</li>{% endfor %}</ul>
+      <div class="co-pro">
+        <p>Co-Production with:</p>
+        <p>{% for c in page.co_producers %}{{ c }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>
+      </div>
       {%- endif %}
-      <div class="prose">{{ content }}</div>
+      <div class="prose show-body">{{ content }}</div>
       {%- if page.awards and page.awards.size > 0 %}
       <div class="awards">{% for a in page.awards %}<img src="{% include src.html src=a %}" alt="Award laurel" loading="lazy">{% endfor %}</div>
       {%- endif %}
       {%- if page.tickets_url and page.tickets_url != "" %}
-      <p><a class="button" href="{{ page.tickets_url }}">{{ page.tickets_label | default: 'Tickets Here' }}</a></p>
+      <p><a class="btn btn-outline" href="{{ page.tickets_url }}">{{ page.tickets_label | default: 'Tickets Here' }}</a></p>
+      {%- endif %}
+      {%- if page.trailer and page.trailer != "" %}
+      <section class="show-trailer">
+        <h2 class="display display-sm">Watch the Trailer</h2>
+        {% include video.html url=page.trailer poster=page.trailer_poster title=page.title %}
+      </section>
       {%- endif %}
     </div>
-    {%- if page.hero and page.hero != "" %}
-    <figure class="show-hero"><img src="{% include src.html src=page.hero %}" alt="{{ page.title }}" data-lightbox="hero"></figure>
-    {%- endif %}
+    <div class="show-side">
+      {%- if page.hero and page.hero != "" %}
+      <figure class="show-hero"><img src="{% include src.html src=page.hero %}" alt="{{ page.title }}" data-lightbox="{{ page.slug }}-hero"></figure>
+      {%- endif %}
+      {%- if page.questions and page.questions != "" %}
+      <div class="prose show-questions">{{ page.questions | markdownify }}</div>
+      {%- endif %}
+    </div>
   </div>
 
-  {%- if page.trailer and page.trailer != "" %}
-  <section class="show-trailer">
-    <h2 class="small-heading">Watch the Trailer:</h2>
-    {% include video.html url=page.trailer title=page.title %}
+  {%- if page.media and page.media.size > 0 %}
+  <section class="show-media">
+    <h2 class="section-title">{{ page.media_heading | default: 'Media' }}</h2>
+    <div class="media-grid">
+      {%- for m in page.media %}
+      <figure>
+        {% include video.html url=m.video poster=m.poster title=m.caption %}
+        {%- if m.caption and m.caption != "" %}<figcaption>{{ m.caption }}</figcaption>{% endif %}
+      </figure>
+      {%- endfor %}
+    </div>
   </section>
   {%- endif %}
 
-  {%- if page.questions and page.questions != "" %}
-  <section class="prose show-questions">{{ page.questions | markdownify }}</section>
+  {%- if page.history and page.history != "" %}
+  <section class="show-split">
+    <div class="show-split-media history-grid">
+      {%- for img in page.history_images %}<img src="{% include src.html src=img %}" alt="" loading="lazy" data-lightbox="{{ page.slug }}-history">{% endfor %}
+    </div>
+    <div class="show-split-text">
+      <h2 class="section-title">{{ page.history_heading | default: 'Development History' }}</h2>
+      <div class="prose">{{ page.history | markdownify }}</div>
+      {%- if page.history_note and page.history_note != "" %}<div class="prose small-print">{{ page.history_note | markdownify }}</div>{% endif %}
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if page.gallery_style == 'slider' or page.gallery_style == 'grid' %}
+  {%- if page.gallery and page.gallery.size > 0 %}
+  <section class="show-gallery">
+    {%- if page.gallery_heading and page.gallery_heading != "" %}<h2 class="section-title">{{ page.gallery_heading }}</h2>{% endif %}
+    {% include gallery.html images=page.gallery style=page.gallery_style group=page.slug alt=page.title %}
+  </section>
+  {%- endif %}
+  {%- endif %}
+
+  {%- if page.review and page.review != "" %}
+  <section class="show-split">
+    <div class="show-split-media stack">
+      {%- for img in page.review_images %}<img src="{% include src.html src=img %}" alt="{{ page.title }} production photo" loading="lazy" data-lightbox="{{ page.slug }}-review">{% endfor %}
+    </div>
+    <div class="show-split-text prose review">{{ page.review | markdownify }}</div>
+  </section>
   {%- endif %}
 
   {%- if page.quotes and page.quotes.size > 0 %}
-  <section class="quotes">
-    <h2 class="small-heading">{{ page.quotes_heading | default: 'Some quotes from our audience:' }}</h2>
-    {%- for q in page.quotes %}
-    <blockquote><p>&ldquo;{{ q.text }}&rdquo;</p>{% if q.source and q.source != "" %}<cite>{{ q.source }}</cite>{% endif %}</blockquote>
-    {%- endfor %}
+  <section class="show-split quotes">
+    <div class="show-split-text">
+      <h2 class="section-title">{{ page.quotes_heading | default: 'What people said' }}</h2>
+      {%- for q in page.quotes %}
+      <blockquote><p>&ldquo;{{ q.text }}&rdquo;</p>{% if q.source and q.source != "" %}<cite>{{ q.source }}</cite>{% endif %}</blockquote>
+      {%- endfor %}
+    </div>
+    {%- if page.quotes_image and page.quotes_image != "" %}
+    <div class="show-split-media"><img src="{% include src.html src=page.quotes_image %}" alt="{{ page.title }} production photo" loading="lazy" data-lightbox="{{ page.slug }}-quotes"></div>
+    {%- endif %}
   </section>
-  {%- endif %}
-
-  {% include gallery.html images=page.gallery style="grid" group=page.slug alt=page.title %}
-
-  {%- if page.review and page.review != "" %}
-  <section class="prose review">{{ page.review | markdownify }}</section>
   {%- endif %}
 
   {%- if page.credits and page.credits != "" %}
-  <section class="credits">
-    <h2 class="small-heading">Show Credits</h2>
-    <div class="prose">{{ page.credits | markdownify }}</div>
+  <section class="show-split credits">
+    <div class="show-split-text">
+      <h2 class="section-title">Show Credits</h2>
+      <div class="prose">{{ page.credits | markdownify }}</div>
+    </div>
+    {%- if page.credits_image and page.credits_image != "" %}
+    <figure class="show-split-media">
+      <img src="{% include src.html src=page.credits_image %}" alt="{{ page.title }} production photo" loading="lazy" data-lightbox="{{ page.slug }}-credits">
+      {%- if page.photo_credit and page.photo_credit != "" %}<figcaption>Show Photography by {{ page.photo_credit }}</figcaption>{% endif %}
+    </figure>
+    {%- elsif page.photo_credit and page.photo_credit != "" %}
+    <p class="photo-credit">Show Photography by {{ page.photo_credit }}</p>
+    {%- endif %}
   </section>
-  {%- endif %}
-
-  {%- if page.photo_credit and page.photo_credit != "" %}
-  <p class="photo-credit">Show Photography by {{ page.photo_credit }}</p>
   {%- endif %}
 
   {%- if page.booking_cta %}
   <section class="cta">
-    <p class="cta-big">Are you a theatre venue or festival?</p>
-    <p class="cta-big">Would you like this show in your lineup?</p>
+    <p class="display display-md">Are you a theatre venue or festival?</p>
+    <p class="cta-line">{{ page.cta_line | default: 'Would you like this show in your lineup?' }}</p>
     <p>If so, please don't hesitate to get in touch.</p>
-    <p><a class="button" href="{{ '/contact/' | relative_url }}">Contact Us Here</a></p>
+    <p><a class="btn btn-outline" href="{{ '/contact/' | relative_url }}">Contact Us Here</a></p>
   </section>
   {%- endif %}
 </article>

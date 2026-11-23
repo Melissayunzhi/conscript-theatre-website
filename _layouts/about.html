@@ -3,17 +3,33 @@ layout: default
 ---
 {%- for s in page.sections %}
 {%- assign has_img = false -%}{%- if s.image and s.image != "" -%}{%- assign has_img = true -%}{%- endif -%}
-{%- if s.style == 'banner' %}
-<section class="banner"><p>{{ s.heading }}</p></section>
-{%- else %}
-<section class="split {% if has_img %}split-{{ s.style }}{% else %}split-text{% endif %}">
+{%- assign lay = s.layout | default: 'text' -%}
+{%- if lay == 'photos' %}
+<section class="band band-{{ s.theme | default: 'dark' }} about-photos">
+  {%- if s.heading and s.heading != "" %}<h2 class="display display-md">{{ s.heading }}</h2>{% endif %}
+  <div class="photo-wall">{% for img in s.photos %}<img src="{% include src.html src=img %}" alt="Conscript Theatre in performance" loading="lazy" data-lightbox="about-photos">{% endfor %}</div>
+</section>
+{%- continue -%}
+{%- endif -%}
+{%- unless has_img -%}{%- assign lay = 'text' -%}{%- endunless -%}
+<section class="band band-{{ s.theme | default: 'light' }} about-{{ lay }}">
   {%- if has_img %}
-  <figure class="split-img"><img src="{% include src.html src=s.image %}" alt="{{ s.image_alt }}" loading="lazy"></figure>
+  <div class="about-media">
+    <figure class="about-img"><img src="{% include src.html src=s.image %}" alt="{{ s.image_alt }}" loading="lazy"></figure>
+    {%- if s.note and s.note != "" %}<div class="about-note">{{ s.note | markdownify }}</div>{% endif %}
+  </div>
   {%- endif %}
-  <div class="split-body prose">
-    {%- if s.heading and s.heading != "" %}<h2>{{ s.heading }}</h2>{% endif %}
-    {{ s.body | markdownify }}
+  <div class="about-body">
+    {%- if s.heading and s.heading != "" %}
+    <div class="heading-row">
+      <h2 class="display {% if s.heading_size == 'huge' %}display-huge{% else %}display-md{% endif %}">{{ s.heading }}</h2>
+      {% include page-audio.html src=s.audio %}
+    </div>
+    {%- endif %}
+    {%- if s.lead and s.lead != "" %}<div class="about-lead">{{ s.lead | markdownify }}</div>{% endif %}
+    <div class="prose">{{ s.body | markdownify }}</div>
+    {%- if s.small_image and s.small_image != "" %}<img class="about-small-img" src="{% include src.html src=s.small_image %}" alt="" loading="lazy">{% endif %}
+    {%- if s.note and s.note != "" and has_img == false %}<div class="about-note">{{ s.note | markdownify }}</div>{% endif %}
   </div>
 </section>
-{%- endif %}
 {%- endfor %}

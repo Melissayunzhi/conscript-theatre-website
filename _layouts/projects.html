@@ -1,47 +1,51 @@
 ---
 layout: default
 ---
-<h1 class="page-title">{{ page.title }}</h1>
+<div class="wrap">
+  <div class="heading-row page-heading">
+    <h1 class="display display-xl">{{ page.title }}</h1>
+    {% include page-audio.html src=page.audio %}
+  </div>
 
-{%- assign current = site.shows | where: "status", "current" | sort: "order" %}
-{%- for s in current %}
-<section class="current-show">
-  {%- if s.hero and s.hero != "" %}
-  <figure class="current-img"><a href="{{ s.url | relative_url }}"><img src="{% include src.html src=s.hero %}" alt="{{ s.title }}"></a></figure>
+  {%- assign current = site.shows | where: "status", "current" | sort: "order" %}
+  {%- for s in current %}
+  {%- assign img = s.card_image | default: s.hero %}
+  <section class="current-card"{% if img and img != "" %} style="--card-img: url('{% include src.html src=img %}')"{% endif %}>
+    <div class="current-main">
+      <h2 class="current-title"><a href="{{ s.url | relative_url }}">{% include show-title.html show=s %}</a></h2>
+      <p class="current-label">{{ page.current_label }}</p>
+      <div class="prose">{% if s.card_text and s.card_text != "" %}{{ s.card_text | markdownify }}{% else %}{{ s.content }}{% endif %}</div>
+    </div>
+    <div class="current-side">
+      {%- if s.event_line and s.event_line != "" %}<p class="current-event">{{ s.event_line | newline_to_br }}</p>{% endif %}
+      {%- if s.tickets_url and s.tickets_url != "" %}
+      <p><a class="btn btn-tickets" href="{{ s.tickets_url }}">{{ s.tickets_label | default: 'Tickets Here' }}</a></p>
+      {%- endif %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  {%- assign past = site.shows | where: "status", "past" | sort: "order" %}
+  {%- if past.size > 0 %}
+  <h2 class="display display-md previous-heading">{{ page.previous_heading }}</h2>
+  {%- for s in past %}
+  <section class="past-show{% cycle '', ' past-show-flip' %}">
+    <div class="past-media">
+      {%- if s.gallery and s.gallery.size > 0 %}
+      {% include gallery.html images=s.gallery style="slider" group=s.slug alt=s.title %}
+      {%- elsif s.hero and s.hero != "" %}
+      <img src="{% include src.html src=s.hero %}" alt="{{ s.title }}" loading="lazy">
+      {%- endif %}
+    </div>
+    <div class="past-text">
+      <h3 class="past-title"><a href="{{ s.url | relative_url }}">{% include show-title.html show=s %}</a></h3>
+      <div class="prose">{{ s.summary | markdownify }}</div>
+      {%- if s.awards and s.awards.size > 0 %}
+      <div class="awards">{% for a in s.awards %}<img src="{% include src.html src=a %}" alt="Award laurel" loading="lazy">{% endfor %}</div>
+      {%- endif %}
+      <p class="past-more">{{ s.more_label | default: 'For more information,' }} <a class="btn btn-outline" href="{{ s.url | relative_url }}">{{ s.more_button | default: 'click here' }}</a></p>
+    </div>
+  </section>
+  {%- endfor %}
   {%- endif %}
-  <div class="current-text">
-    <p class="label">{{ page.current_label }}</p>
-    <h2 class="show-title"><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h2>
-    <div class="prose">{{ s.content }}</div>
-    {%- if s.tickets_url and s.tickets_url != "" %}
-    <p><a class="button" href="{{ s.tickets_url }}">{{ s.tickets_label | default: 'Tickets Here' }}</a></p>
-    {%- endif %}
-    {%- if s.event_line and s.event_line != "" %}<h3 class="event-line">{{ s.event_line }}</h3>{% endif %}
-    {%- if s.event_image and s.event_image != "" %}<img class="event-img" src="{% include src.html src=s.event_image %}" alt="{{ s.event_line }}" loading="lazy">{% endif %}
-  </div>
-</section>
-{%- endfor %}
-
-{%- assign past = site.shows | where: "status", "past" | sort: "order" %}
-{%- if past.size > 0 %}
-<h2 class="section-heading">{{ page.previous_heading }}</h2>
-{%- for s in past %}
-<section class="past-show{% cycle '', ' past-show-flip' %}">
-  <div class="past-media">
-    {%- if s.gallery and s.gallery.size > 0 %}
-    {% include gallery.html images=s.gallery style="slider" group=s.slug alt=s.title %}
-    {%- elsif s.hero and s.hero != "" %}
-    <img src="{% include src.html src=s.hero %}" alt="{{ s.title }}" loading="lazy">
-    {%- endif %}
-  </div>
-  <div class="past-text">
-    <h3 class="show-title"><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h3>
-    <p>{{ s.summary }}</p>
-    {%- if s.awards and s.awards.size > 0 %}
-    <div class="awards">{% for a in s.awards %}<img src="{% include src.html src=a %}" alt="Award laurel" loading="lazy">{% endfor %}</div>
-    {%- endif %}
-    <p><a class="text-link" href="{{ s.url | relative_url }}">More information, photos{% if s.trailer and s.trailer != "" %} and trailer{% endif %} &rarr;</a></p>
-  </div>
-</section>
-{%- endfor %}
-{%- endif %}
+</div>

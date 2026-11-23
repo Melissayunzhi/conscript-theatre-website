@@ -1,0 +1,6 @@
+{%- assign s = include.show -%}
+{%- if s.title_image and s.title_image != "" -%}
+<img class="show-title-img" src="{% include src.html src=s.title_image %}" alt="{{ s.title }}">
+{%- else -%}
+<span class="show-font-{{ s.title_font | default: 'jost' }}">{{ s.title }}</span>
+{%- endif -%}

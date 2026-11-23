@@ -2,6 +2,7 @@
 layout: team
 title: Meet The Team
 page_id: team
+audio: /assets/audio/team.mp3
 permalink: /team/
 description: Information about the members of Conscript Theatre - Elia Fielden, Guy Rudin, Nastia Malnieva, Heather Tennant, and Emile Belli. We also regularly work with many other exciting creatives and artists.
 intro: |
@@ -12,7 +13,7 @@ members:
   - name: Elia Fielden
     title: Artistic Director
     roles: Performer, Director, Dramaturg, Writer, Audio and Video Design, Production
-    photo: https://static.wixstatic.com/media/8ca848_60013c5731dc491f8f34129d2ed7ebdf~mv2.jpg/v1/crop/x_1,y_0,w_518,h_705/fill/w_574,h_788,al_c,q_85/8ca848_60013c5731dc491f8f34129d2ed7ebdf~mv2.jpg
+    photo: /assets/images/team/elia.jpg
     photo_hover: ""
     bio: |
       Elia is a British-German theatre practitioner, writer, and interdisciplinary artist.
@@ -25,7 +26,7 @@ members:
   - name: Guy Rudin
     title: ""
     roles: Performer, Director, Writer, Designer, Musician, Production
-    photo: https://static.wixstatic.com/media/cde7b5_4d5c4bb19a4b4b98b073d82c1d225d05~mv2.jpg/v1/fill/w_602,h_814,al_c,q_85/cde7b5_4d5c4bb19a4b4b98b073d82c1d225d05~mv2.jpg
+    photo: /assets/images/team/guy.jpg
     photo_hover: ""
     bio: |
       Guy is a Bristol based Theatre Maker, Actor, and Plumber.
@@ -38,7 +39,7 @@ members:
   - name: Anastasia Malnieva
     title: ""
     roles: Performer, Movement Director, Writer
-    photo: https://static.wixstatic.com/media/8ca848_9dcad64c6ad7404991cd5de2192d5cb7~mv2.jpg/v1/fill/w_574,h_714,al_c,q_85/8ca848_9dcad64c6ad7404991cd5de2192d5cb7~mv2.jpg
+    photo: /assets/images/team/nastia.jpg
     photo_hover: ""
     bio: |
       Nastia is an interdisciplinary performance artist from Odesa, Ukraine. At the core of her practice is movement and body work, creating powerful symbolic images and engaging stories.
@@ -51,7 +52,7 @@ members:
   - name: Emile Belli
     title: ""
     roles: Performer, Musician, Sound Design, Writing, Direction
-    photo: https://static.wixstatic.com/media/cde7b5_17bcb2a06dd64d7c9f5da818f2d6aa3b~mv2.png/v1/fill/w_590,h_700,al_c,q_85/cde7b5_17bcb2a06dd64d7c9f5da818f2d6aa3b~mv2.png
+    photo: /assets/images/team/emile.jpg
     photo_hover: ""
     bio: |
       Emile is a French-Italian multidisciplinary artist specialised in Sound Design and Mime.
@@ -66,7 +67,7 @@ members:
   - name: Heather Tennant
     title: ""
     roles: Design, Tech, Production, Art Direction
-    photo: https://static.wixstatic.com/media/8ca848_459b8943020a4f0c9c5e3fab2b93c49e~mv2.png/v1/fill/w_554,h_680,al_c,q_85/8ca848_459b8943020a4f0c9c5e3fab2b93c49e~mv2.png
+    photo: /assets/images/team/heather.jpg
     photo_hover: ""
     bio: |
       Heather is an Irish Multimedia Artist and AV Technician.
@@ -108,7 +109,7 @@ collaborators:
     role: Co-producers (eco 40-60°)
     link: ""
 values_heading: Our Values
-values_image: https://static.wixstatic.com/media/8ca848_b86141a79dd34b3296737f42979fd959~mv2.jpg/v1/fit/w_836,h_848,al_c,q_85/8ca848_b86141a79dd34b3296737f42979fd959~mv2.jpg
+values_image: /assets/images/about/cube.jpg
 values:
   - |
     Ecology

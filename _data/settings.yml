@@ -2,9 +2,10 @@ email: conscripttheatre@gmail.com
 instagram: https://www.instagram.com/conscripttheatre
 instagram_handle: conscripttheatre
 youtube: https://www.youtube.com/channel/UCl1TMeGZPiBhQs7f_UkuLCw
-logo_header: https://static.wixstatic.com/media/8ca848_a522872f76bf4241bbdc7035c106dc95~mv2.png
-logo_text: https://static.wixstatic.com/media/8ca848_6cd31d8646a840d8a2c9187f6b6040e2~mv2.png
-share_image: https://static.wixstatic.com/media/cde7b5_10a0d5acb13c4b0e8034aa28a3f554c9~mv2.jpg/v1/fit/w_2500,h_1330,al_c/cde7b5_10a0d5acb13c4b0e8034aa28a3f554c9~mv2.jpg
+logo_header: /assets/images/logo/wordmark-white.png
+logo_text: /assets/images/logo/wordmark-black.png
+display_font: https://static.wixstatic.com/ufonts/f77129_db05677a1b434d038590e692c217381a/woff2/file.woff2
+share_image: /assets/images/home/home-photo.jpg
 copyright: © 2026 Conscript Theatre
 ambient_audio: ""
 ambient_label: "ambient sound"
