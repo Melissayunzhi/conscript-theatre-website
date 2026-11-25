@@ -15,6 +15,7 @@ layout: default
       <h2 class="current-title" data-fade="soft"><a href="{{ s.url | relative_url }}">{% include show-title.html show=s %}</a></h2>
       <p class="current-label" data-fade data-fade-delay="1.4">{{ page.current_label }}</p>
       <div class="prose" data-fade data-fade-delay="1.4">{% if s.card_text and s.card_text != "" %}{{ s.card_text | markdownify }}{% else %}{{ s.content }}{% endif %}</div>
+      <p class="past-more" data-fade data-fade-delay="1.4">{{ s.more_label | default: 'For more information,' }} <a class="btn btn-outline" href="{{ s.url | relative_url }}">{{ s.more_button | default: 'click here' }}</a></p>
     </div>
     <div class="current-side" data-fade="soft" data-fade-delay="1.4">
       {%- if s.event_line and s.event_line != "" %}<p class="current-event">{{ s.event_line | newline_to_br }}</p>{% endif %}

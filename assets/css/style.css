@@ -247,6 +247,7 @@ main { min-height: 50vh; }
 .current-label { margin-bottom: 1.2em; }
 .current-side { text-align: right; font-size: 18px; padding-top: 12px; }
 .current-event { margin-bottom: 18px; }
+.current-card .btn-outline:hover { background: var(--white); color: var(--black); border-color: var(--white); }
 .previous-heading { margin: 64px 0 24px 50px; }
 .past-show { display: grid; grid-template-columns: 530fr 450fr; gap: 26px; align-items: center; margin: 0 0 64px; }
 .past-show-flip { grid-template-columns: 330fr 650fr; }
@@ -287,6 +288,13 @@ main { min-height: 50vh; }
 }
 .slider-btn.prev { left: 6px; }
 .slider-btn.next { right: 6px; }
+/* With a mouse, the arrows and photo count only appear while hovering the gallery
+   (or tabbing to the arrows). Touch screens can't hover, so they keep them visible. */
+@media (hover: hover) {
+  .slider-btn, .slider-count { opacity: 0; transition: opacity .25s ease; }
+  .slider:hover .slider-btn, .slider:focus-within .slider-btn,
+  .slider:hover .slider-count, .slider:focus-within .slider-count { opacity: 1; }
+}
 .slider-count { position: absolute; right: 14px; bottom: 10px; z-index: 2; margin: 0; color: #fff; font-family: Arial, sans-serif; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,.7); }
 
 /* ---------- Show pages ---------- */

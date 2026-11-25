@@ -17,6 +17,8 @@ card_text: |
   Having premiered in Estonia in Summer 2026, URS made its UK premiere in London in October 2026, at Peckham Digital Computational Arts Festival.
 hero: /assets/images/urs/photo-01.jpg
 audio: /assets/audio/urs.mp3
+redirect_from:
+  - /projects/urs/
 event_line: |
   Peckham Digital Festival
   23rd October 2026
