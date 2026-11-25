@@ -1,7 +1,7 @@
 title: Conscript Theatre
 description: Conscript Theatre is a Techno-Physical Live Arts Collective. Sounds exciting, doesn't it!
 url: https://conscripttheatre.com
-baseurl: ""
+baseurl: "/conscript-theatre-website"
 
 collections:
   shows:
