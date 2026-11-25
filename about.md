@@ -2,7 +2,7 @@
 sections:
   - theme: dark
     layout: image-left
-    heading: So What's Our Deal? Test
+    heading: So What's Our Deal?
     heading_size: normal
     audio: /assets/audio/about.mp3
     lead: |
