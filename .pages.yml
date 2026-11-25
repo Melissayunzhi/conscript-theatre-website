@@ -1,5 +1,5 @@
 # Pages CMS configuration — https://pagescms.org/docs/
-# This is what Conscript sees when they log in to edit the site.
+#edit here if you want to make site changes that the other tabs doesn't allow you to.
 
 media:
   - name: images
