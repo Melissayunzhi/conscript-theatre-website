@@ -2,7 +2,7 @@
 layout: default
 ---
 <div class="wrap">
-  <div class="heading-row page-heading">
+  <div class="heading-row page-heading" data-fade data-fade-delay="0.4">
     <h1 class="display display-xl">{{ page.title }}</h1>
     {% include page-audio.html src=page.audio %}
   </div>
@@ -12,11 +12,11 @@ layout: default
   {%- assign img = s.card_image | default: s.hero %}
   <section class="current-card"{% if img and img != "" %} style="--card-img: url('{% include src.html src=img %}')"{% endif %}>
     <div class="current-main">
-      <h2 class="current-title"><a href="{{ s.url | relative_url }}">{% include show-title.html show=s %}</a></h2>
-      <p class="current-label">{{ page.current_label }}</p>
-      <div class="prose">{% if s.card_text and s.card_text != "" %}{{ s.card_text | markdownify }}{% else %}{{ s.content }}{% endif %}</div>
+      <h2 class="current-title" data-fade="soft"><a href="{{ s.url | relative_url }}">{% include show-title.html show=s %}</a></h2>
+      <p class="current-label" data-fade data-fade-delay="1.4">{{ page.current_label }}</p>
+      <div class="prose" data-fade data-fade-delay="1.4">{% if s.card_text and s.card_text != "" %}{{ s.card_text | markdownify }}{% else %}{{ s.content }}{% endif %}</div>
     </div>
-    <div class="current-side">
+    <div class="current-side" data-fade="soft" data-fade-delay="1.4">
       {%- if s.event_line and s.event_line != "" %}<p class="current-event">{{ s.event_line | newline_to_br }}</p>{% endif %}
       {%- if s.tickets_url and s.tickets_url != "" %}
       <p><a class="btn btn-tickets" href="{{ s.tickets_url }}">{{ s.tickets_label | default: 'Tickets Here' }}</a></p>
@@ -27,9 +27,9 @@ layout: default
 
   {%- assign past = site.shows | where: "status", "past" | sort: "order" %}
   {%- if past.size > 0 %}
-  <h2 class="display display-md previous-heading">{{ page.previous_heading }}</h2>
+  <h2 class="display display-md previous-heading" data-fade="soft">{{ page.previous_heading }}</h2>
   {%- for s in past %}
-  <section class="past-show{% cycle '', ' past-show-flip' %}">
+  <section class="past-show{% cycle '', ' past-show-flip' %}" data-fade="soft">
     <div class="past-media">
       {%- if s.gallery and s.gallery.size > 0 %}
       {% include gallery.html images=s.gallery style="slider" group=s.slug alt=s.title %}

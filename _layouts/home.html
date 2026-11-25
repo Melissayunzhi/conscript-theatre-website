@@ -9,22 +9,23 @@ layout: default
 {%- endif %}
 
 <section class="home-hero">
-  <figure class="home-logo">
+  {%- comment %} Landing sequence, timed like the Wix site (header follows at 6.6s, see header.html) {% endcomment %}
+  <figure class="home-logo" data-fade data-fade-delay="0.9" data-fade-dur="2">
     <img src="{% include src.html src=page.logo_image %}" alt="{{ page.logo_alt }}" width="523" height="625">
   </figure>
-  <figure class="home-photo">
+  <figure class="home-photo" data-fade data-fade-delay="2.5" data-fade-dur="2">
     <img src="{% include src.html src=page.photo %}" alt="{{ page.photo_alt }}" width="553" height="369">
   </figure>
-  <div class="home-tagline">{{ page.tagline | markdownify }}</div>
-  <p class="home-cta"><a class="btn btn-intrigued" href="{{ page.button_link | relative_url }}">{{ page.button_label }}</a></p>
+  <div class="home-tagline" data-fade data-fade-delay="3.9" data-fade-dur="2">{{ page.tagline | markdownify }}</div>
+  <p class="home-cta" data-fade data-fade-delay="6" data-fade-dur="2"><a class="btn btn-intrigued" href="{{ page.button_link | relative_url }}">{{ page.button_label }}</a></p>
 </section>
 
 {%- assign current = site.shows | where: "status", "current" | sort: "order" %}
 {%- if current.size > 0 and page.show_now_showing %}
 <section class="home-now">
   {%- for s in current %}
-  <a class="now-card" href="{{ s.url | relative_url }}">
-    <span class="now-label">Now showing</span>
+  <a class="now-card" data-fade="soft" data-fade-delay="6" href="{{ s.url | relative_url }}">
+    <span class="now-label">{{ page.now_label | default: "Now showing" }}</span>
     {%- if s.title_image and s.title_image != "" %}
     <img class="now-title-img" src="{% include src.html src=s.title_image %}" alt="{{ s.title }}">
     {%- else %}

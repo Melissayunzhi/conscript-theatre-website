@@ -34,7 +34,7 @@ content:
       - name: status
         label: Status
         type: select
-        description: "Current = the big card at the top of Projects and 'Now showing' on the homepage. Past = listed under Previous Work."
+        description: "Current = the big card at the top of Projects and the strip on the homepage (keep the newest show as Current even after it finishes, and change the labels to say 'Recent'). Past = listed under Previous Work."
         options:
           values: [current, past]
       - { name: order, label: Order, type: number, description: "Lower numbers appear first." }
@@ -133,7 +133,8 @@ content:
       - { name: tagline, label: Tagline, type: text }
       - { name: button_label, label: Button text, type: string }
       - { name: button_link, label: Button link, type: string }
-      - { name: show_now_showing, label: "Show 'Now showing' strip", type: boolean }
+      - { name: show_now_showing, label: "Show the current-show strip", type: boolean }
+      - { name: now_label, label: "Label above the show in that strip", type: string, description: "e.g. Now showing (while it's on) or Recent show (after it's finished)" }
       - { name: layout, type: string, hidden: true }
       - { name: title, type: string, hidden: true }
       - { name: page_id, type: string, hidden: true }
@@ -181,6 +182,14 @@ content:
           - { name: note, label: "Text under the big image", type: rich-text }
           - { name: small_image, label: "Small image under the text", type: image, options: { media: images } }
           - { name: photos, label: "Photos (photo wall only)", type: image, list: true, options: { media: images } }
+      - { name: values_heading, label: Values heading, type: string }
+      - { name: values_image, label: Values image, type: image, options: { media: images } }
+      - name: values
+        label: Values
+        type: text
+        list: true
+        description: "One group per box, one word per line."
+      - { name: values_statement, label: Values statement, type: rich-text }
       - { name: layout, type: string, hidden: true }
       - { name: title, type: string, hidden: true }
       - { name: page_id, type: string, hidden: true }
@@ -231,14 +240,6 @@ content:
           - { name: name, label: Name, type: string, required: true }
           - { name: role, label: "Role / project", type: string }
           - { name: link, label: "Website or Instagram link (optional)", type: string }
-      - { name: values_heading, label: Values heading, type: string }
-      - { name: values_image, label: Values image, type: image, options: { media: images } }
-      - name: values
-        label: Values
-        type: text
-        list: true
-        description: "One group per box, one word per line."
-      - { name: values_statement, label: Values statement, type: rich-text }
       - { name: layout, type: string, hidden: true }
       - { name: title, type: string, hidden: true }
       - { name: page_id, type: string, hidden: true }

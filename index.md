@@ -15,4 +15,5 @@ tagline: |
   We make techno-physical live arts theatre.  
   That's right, be intrigued.
 show_now_showing: true
+now_label: Recent show
 ---

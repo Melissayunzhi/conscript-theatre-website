@@ -6,8 +6,8 @@ layout: default
 {%- assign lay = s.layout | default: 'text' -%}
 {%- if lay == 'photos' %}
 <section class="band band-{{ s.theme | default: 'dark' }} about-photos">
-  {%- if s.heading and s.heading != "" %}<h2 class="display display-md">{{ s.heading }}</h2>{% endif %}
-  <div class="photo-wall">{% for img in s.photos %}<img src="{% include src.html src=img %}" alt="Conscript Theatre in performance" loading="lazy" data-lightbox="about-photos">{% endfor %}</div>
+  {%- if s.heading and s.heading != "" %}<h2 class="display display-md" data-fade="soft">{{ s.heading }}</h2>{% endif %}
+  <div class="photo-wall">{% for img in s.photos %}<img src="{% include src.html src=img %}" alt="Conscript Theatre in performance" loading="lazy" data-lightbox="about-photos" data-fade="soft">{% endfor %}</div>
 </section>
 {%- continue -%}
 {%- endif -%}
@@ -15,11 +15,11 @@ layout: default
 <section class="band band-{{ s.theme | default: 'light' }} about-{{ lay }}">
   {%- if has_img %}
   <div class="about-media">
-    <figure class="about-img"><img src="{% include src.html src=s.image %}" alt="{{ s.image_alt }}" loading="lazy"></figure>
-    {%- if s.note and s.note != "" %}<div class="about-note">{{ s.note | markdownify }}</div>{% endif %}
+    <figure class="about-img"{% if forloop.first %} data-fade{% else %} data-fade="soft"{% endif %}{% if lay == 'image-right' %} data-bg-parallax="0.47"{% endif %}><img src="{% include src.html src=s.image %}" alt="{{ s.image_alt }}" loading="lazy"></figure>
+    {%- if s.note and s.note != "" %}<div class="about-note" data-fade="soft">{{ s.note | markdownify }}</div>{% endif %}
   </div>
   {%- endif %}
-  <div class="about-body">
+  <div class="about-body" data-fade="soft">
     {%- if s.heading and s.heading != "" %}
     <div class="heading-row">
       <h2 class="display {% if s.heading_size == 'huge' %}display-huge{% else %}display-md{% endif %}">{{ s.heading }}</h2>
@@ -33,3 +33,5 @@ layout: default
   </div>
 </section>
 {%- endfor %}
+
+{% include values.html %}

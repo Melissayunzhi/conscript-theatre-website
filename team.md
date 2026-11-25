@@ -108,24 +108,4 @@ collaborators:
   - name: Mercy Theatre Collective C.I.C., Rose Bruford College and VSMU Bratislava
     role: Co-producers (eco 40-60°)
     link: ""
-values_heading: Our Values
-values_image: /assets/images/about/cube.jpg
-values:
-  - |
-    Ecology
-    Diversity
-    Complexity
-  - |
-    Internationalism
-    Collaboration
-    Exploration
-    Curiosity
-  - |
-    Beauty
-    Truth
-    Love
-values_statement: |
-  We will always avoid the usage of generative so called 'AI' services. We love technology, but we love Artists more. We do not love Data Theft companies speeding up the end of the world just to avoid paying real artists, and to rot your capacity for real creativity.
-
-  LLMs and Neural Networked Computing are not the same thing as AI. This is just a marketing term. We must remember that 'AIs' are run by companies, who are run by real people. They are responsible for the damage they cause.
 ---

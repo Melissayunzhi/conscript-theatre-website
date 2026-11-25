@@ -19,6 +19,9 @@
   {%- assign share = page.hero | default: site.data.settings.share_image %}
   <meta property="og:image" content="{% if share contains '://' %}{{ share }}{% else %}{{ share | absolute_url }}{% endif %}">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/logo/favicon-32.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ '/assets/images/logo/favicon-192.png' | relative_url }}">
+  <link rel="apple-touch-icon" href="{{ '/assets/images/logo/apple-touch-icon.png' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300..700;1,300..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Questrial&display=swap" rel="stylesheet">
@@ -32,6 +35,16 @@
     }
   </style>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <script>
+    /* Hide [data-fade] elements until main.js fades them in. If main.js never
+       loads, show everything after 4s rather than leaving the page blank. */
+    (function (html) {
+      html.classList.add("js-fade");
+      /* The full intro plays on the first page of a visit; later pages get a quicker one. */
+      try { if (sessionStorage.getItem("intro-seen")) html.classList.add("intro-seen"); else sessionStorage.setItem("intro-seen", "1"); } catch (e) {}
+      setTimeout(function () { if (!window.fadeReady) html.classList.remove("js-fade"); }, 4000);
+    })(document.documentElement);
+  </script>
   <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 </head>
 <body class="theme-{{ page.theme | default: 'light' }}">

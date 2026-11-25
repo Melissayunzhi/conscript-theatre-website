@@ -2,7 +2,7 @@
 layout: default
 ---
 <div class="wrap">
-  <div class="heading-row page-heading">
+  <div class="heading-row page-heading" data-fade="soft">
     <h1 class="who-is display">
       <span>who is</span>
       <img src="{% include src.html src=site.data.settings.logo_text %}" alt="Conscript" width="267" height="70">
@@ -12,17 +12,17 @@ layout: default
   </div>
 
   <div class="members">
-    <div class="team-intro prose">{{ page.intro | markdownify }}</div>
+    <div class="team-intro prose" data-fade="soft">{{ page.intro | markdownify }}</div>
     {%- for m in page.members %}
     {%- assign has_hover = false -%}{%- if m.photo_hover and m.photo_hover != "" -%}{%- assign has_hover = true -%}{%- endif %}
-    <article class="member{% cycle ' member-right', ' member-left' %}">
+    <article class="member{% cycle ' member-right', ' member-left' %}" data-fade="soft">
       <div class="member-text">
         <h2 class="member-name">{{ m.name }}</h2>
         {%- if m.title and m.title != "" %}<p class="member-title">{{ m.title }}</p>{% endif %}
         {%- if m.roles and m.roles != "" %}<p class="member-roles">{{ m.roles }}</p>{% endif %}
         <div class="member-bio">{{ m.bio | markdownify }}</div>
       </div>
-      <figure class="member-photo{% if has_hover %} has-hover{% endif %}" tabindex="0" aria-label="Photo of {{ m.name }}">
+      <figure class="member-photo{% if has_hover %} has-hover{% endif %}" data-parallax="0.5" tabindex="0" aria-label="Photo of {{ m.name }}">
         <img class="photo-main" src="{% include src.html src=m.photo %}" alt="{{ m.name }}" loading="lazy">
         {%- if has_hover %}
         <img class="photo-alt" src="{% include src.html src=m.photo_hover %}" alt="" aria-hidden="true" loading="lazy">
@@ -34,7 +34,7 @@ layout: default
   </div>
 
   {%- if page.collaborators and page.collaborators.size > 0 %}
-  <section class="collaborators">
+  <section class="collaborators" data-fade="soft">
     <h2 class="display display-md">{{ page.collaborators_heading }}</h2>
     {%- if page.collaborators_intro %}<p>{{ page.collaborators_intro }}</p>{% endif %}
     <ul class="collab-list">
@@ -48,18 +48,3 @@ layout: default
   </section>
   {%- endif %}
 </div>
-
-<section class="values">
-  <div class="values-dark">
-    <h2 class="display display-lg">{{ page.values_heading }}</h2>
-    {%- if page.values_image and page.values_image != "" %}<img src="{% include src.html src=page.values_image %}" alt="" loading="lazy">{% endif %}
-  </div>
-  <div class="values-light">
-    <div class="values-words">
-      {%- for group in page.values %}
-      <ul>{% assign words = group | strip | newline_to_br | split: '<br />' %}{% for w in words %}{% assign w2 = w | strip %}{% if w2 != "" %}<li>{{ w2 }}</li>{% endif %}{% endfor %}</ul>
-      {%- endfor %}
-    </div>
-    <div class="values-statement">{{ page.values_statement | markdownify }}</div>
-  </div>
-</section>

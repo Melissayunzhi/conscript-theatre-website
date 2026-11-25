@@ -1,0 +1,18 @@
+{%- comment -%} "Our values" block (black half with heading + image, white half with the words).
+  Uses the page's values_heading / values_image / values / values_statement. {%- endcomment -%}
+{%- if page.values_heading and page.values_heading != "" %}
+<section class="values">
+  <div class="values-dark" data-fade="soft">
+    <h2 class="display display-lg">{{ page.values_heading }}</h2>
+    {%- if page.values_image and page.values_image != "" %}<img src="{% include src.html src=page.values_image %}" alt="" loading="lazy" data-parallax="0.5">{% endif %}
+  </div>
+  <div class="values-light" data-fade="soft">
+    <div class="values-words">
+      {%- for group in page.values %}
+      <ul>{% assign words = group | strip | newline_to_br | split: '<br />' %}{% for w in words %}{% assign w2 = w | strip %}{% if w2 != "" %}<li>{{ w2 }}</li>{% endif %}{% endfor %}</ul>
+      {%- endfor %}
+    </div>
+    <div class="values-statement">{{ page.values_statement | markdownify }}</div>
+  </div>
+</section>
+{%- endif %}

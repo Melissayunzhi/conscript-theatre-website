@@ -14,13 +14,13 @@ card_text: |
 
   This bold new show, a messy blending of reality and fiction, unfolds through the onstage setup and operation of technological networks, experimental audio and video composition, 3D animation, live camerawork, dance, puppetry, and (some) acting.
 
-  Having premiered in Estonia in Summer 2026, URS now comes to London for Peckham Digital Computational Arts Festival.
+  Having premiered in Estonia in Summer 2026, URS made its UK premiere in London in October 2026, at Peckham Digital Computational Arts Festival.
 hero: /assets/images/urs/photo-01.jpg
 audio: /assets/audio/urs.mp3
 event_line: |
   Peckham Digital Festival
-  23rd October
-tickets_url: https://www.tickettailor.com/events/peckhamdigital/2419319
+  23rd October 2026
+tickets_url: ""
 tickets_label: Tickets Here
 trailer: ""
 co_producers: []

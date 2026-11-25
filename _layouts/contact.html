@@ -3,13 +3,13 @@ layout: default
 ---
 {%- assign s = site.data.settings -%}
 <div class="wrap contact">
-  <h1 class="display display-xl">{{ page.heading }}</h1>
-  <div class="contact-intro">{{ page.intro | markdownify }}</div>
+  <h1 class="display display-xl" data-fade="soft">{{ page.heading }}</h1>
+  <div class="contact-intro" data-fade="soft">{{ page.intro | markdownify }}</div>
 </div>
 <section class="contact-box">
   <div class="wrap">
-    <h2 class="display display-md">{{ page.form_heading }}</h2>
-    <div class="contact-details">
+    <h2 class="display display-md" data-fade="soft">{{ page.form_heading }}</h2>
+    <div class="contact-details" data-fade="soft">
       <div>
         <p class="label">Email</p>
         <p><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
@@ -20,7 +20,7 @@ layout: default
       </div>
     </div>
     {%- if s.contact_form_endpoint and s.contact_form_endpoint != "" %}
-    <form class="contact-form" action="{{ s.contact_form_endpoint }}" method="POST" data-ajax-form>
+    <form class="contact-form" data-fade="soft" action="{{ s.contact_form_endpoint }}" method="POST" data-ajax-form>
       <label>First Name<input name="first_name" autocomplete="given-name"></label>
       <label>Last Name<input name="last_name" autocomplete="family-name"></label>
       <label>Email *<input type="email" name="email" autocomplete="email" required></label>

@@ -1,12 +1,15 @@
+{%- comment %} Logo + menu fade in at the end of the home intro (quickly on other pages); only on the first page of a visit {% endcomment %}
+{%- if page.url == '/' %}{% capture fade %} data-fade data-fade-delay="6.6" data-fade-dur="3.1"{% endcapture %}
+{%- else %}{% capture fade %} data-fade="soft" data-fade-delay="0.2"{% endcapture %}{% endif %}
 <header class="site-header">
-  <a class="site-logo" href="{{ '/' | relative_url }}" aria-label="Conscript Theatre home">
+  <a class="site-logo" href="{{ '/' | relative_url }}" aria-label="Conscript Theatre home"{{ fade }}>
     <img src="{% include src.html src=site.data.settings.logo_header %}" alt="Conscript Theatre" width="140" height="37">
   </a>
-  <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+  <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"{{ fade }}>
     <span class="nav-toggle-bars" aria-hidden="true"></span>
     <span class="visually-hidden">Menu</span>
   </button>
-  <nav class="site-nav" id="site-nav" aria-label="Main">
+  <nav class="site-nav" id="site-nav" aria-label="Main"{{ fade }}>
     <ul>
       {%- for item in site.data.navigation %}
       {%- assign active = false -%}

@@ -1,8 +1,8 @@
 {%- assign s = site.data.settings -%}
 <footer class="site-footer">
   <div class="footer-inner">
-    <a class="footer-logo" href="{{ '/' | relative_url }}"><img src="{% include src.html src=s.logo_text %}" alt="Conscript" width="228" height="131" loading="lazy"></a>
-    <div class="footer-contact">
+    <a class="footer-logo" data-fade="soft" href="{{ '/' | relative_url }}"><img src="{% include src.html src=s.logo_text %}" alt="Conscript" width="228" height="131" loading="lazy"></a>
+    <div class="footer-contact" data-fade>
       <p class="footer-row"><span class="footer-icon">{% include icon-mail.html %}</span><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
       <p class="footer-row">
         <a class="footer-icon" href="{{ s.instagram }}" aria-label="Instagram">{% include icon-instagram.html %}</a>
@@ -10,6 +10,6 @@
         <span>@<a href="{{ s.instagram }}">{{ s.instagram_handle }}</a></span>
       </p>
     </div>
-    <p class="copyright">{{ s.copyright }}</p>
+    <p class="copyright" data-fade>{{ s.copyright }}</p>
   </div>
 </footer>

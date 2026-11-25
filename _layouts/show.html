@@ -5,7 +5,7 @@ layout: default
   <p class="back"><a href="{{ '/projects/' | relative_url }}">Back to Projects</a></p>
 
   <div class="show-top">
-    <div class="show-main">
+    <div class="show-main" data-fade="soft">
       <div class="heading-row">
         <h1 class="show-title show-font-{{ page.title_font | default: 'jost' }}">{{ page.title }}</h1>
         {% include page-audio.html src=page.audio %}
@@ -31,7 +31,7 @@ layout: default
       </section>
       {%- endif %}
     </div>
-    <div class="show-side">
+    <div class="show-side" data-fade="soft">
       {%- if page.hero and page.hero != "" %}
       <figure class="show-hero"><img src="{% include src.html src=page.hero %}" alt="{{ page.title }}" data-lightbox="{{ page.slug }}-hero"></figure>
       {%- endif %}
@@ -42,7 +42,7 @@ layout: default
   </div>
 
   {%- if page.media and page.media.size > 0 %}
-  <section class="show-media">
+  <section class="show-media" data-fade="soft">
     <h2 class="section-title">{{ page.media_heading | default: 'Media' }}</h2>
     <div class="media-grid">
       {%- for m in page.media %}
@@ -56,7 +56,7 @@ layout: default
   {%- endif %}
 
   {%- if page.history and page.history != "" %}
-  <section class="show-split">
+  <section class="show-split" data-fade="soft">
     <div class="show-split-media history-grid">
       {%- for img in page.history_images %}<img src="{% include src.html src=img %}" alt="" loading="lazy" data-lightbox="{{ page.slug }}-history">{% endfor %}
     </div>
@@ -70,7 +70,7 @@ layout: default
 
   {%- if page.gallery_style == 'slider' or page.gallery_style == 'grid' %}
   {%- if page.gallery and page.gallery.size > 0 %}
-  <section class="show-gallery">
+  <section class="show-gallery" data-fade="soft">
     {%- if page.gallery_heading and page.gallery_heading != "" %}<h2 class="section-title">{{ page.gallery_heading }}</h2>{% endif %}
     {% include gallery.html images=page.gallery style=page.gallery_style group=page.slug alt=page.title %}
   </section>
@@ -78,7 +78,7 @@ layout: default
   {%- endif %}
 
   {%- if page.review and page.review != "" %}
-  <section class="show-split">
+  <section class="show-split" data-fade="soft">
     <div class="show-split-media stack">
       {%- for img in page.review_images %}<img src="{% include src.html src=img %}" alt="{{ page.title }} production photo" loading="lazy" data-lightbox="{{ page.slug }}-review">{% endfor %}
     </div>
@@ -87,7 +87,7 @@ layout: default
   {%- endif %}
 
   {%- if page.quotes and page.quotes.size > 0 %}
-  <section class="show-split quotes">
+  <section class="show-split quotes" data-fade="soft">
     <div class="show-split-text">
       <h2 class="section-title">{{ page.quotes_heading | default: 'What people said' }}</h2>
       {%- for q in page.quotes %}
@@ -101,7 +101,7 @@ layout: default
   {%- endif %}
 
   {%- if page.credits and page.credits != "" %}
-  <section class="show-split credits">
+  <section class="show-split credits" data-fade="soft">
     <div class="show-split-text">
       <h2 class="section-title">Show Credits</h2>
       <div class="prose">{{ page.credits | markdownify }}</div>
@@ -118,7 +118,7 @@ layout: default
   {%- endif %}
 
   {%- if page.booking_cta %}
-  <section class="cta">
+  <section class="cta" data-fade="soft">
     <p class="display display-md">Are you a theatre venue or festival?</p>
     <p class="cta-line">{{ page.cta_line | default: 'Would you like this show in your lineup?' }}</p>
     <p>If so, please don't hesitate to get in touch.</p>
